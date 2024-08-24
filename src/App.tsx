@@ -1,34 +1,35 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Post } from './common/types/Post'
+import getFakePosts from './post'
+import InfiniteScroll from './components/InfiniteScroll'
+import PostCard from './components/PostCard'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [posts, setPosts] = useState<Post[]>([])
+  const [hasMore, setHasMore] = useState(true)
+
+  const fetchMorePosts = async () => {
+    const data = await getFakePosts(8)
+    setPosts(prev => [...prev, ...data.posts])
+    if(posts.length + data.posts.length >= 200) setHasMore(false)
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="container">
+      <div className="post">
+        <h1 className="title">POSTS</h1>
+        <InfiniteScroll
+          next={fetchMorePosts}
+          hasMore={hasMore}
+          loadingComponent={<div className="bt-state">Loading...</div>}
+          endMessage={<div className="bt-state">You have reached the end.</div>}
+        >
+          <div className="post-list">
+            {posts.map(item => <PostCard key={item.id} post={item}/>)}
+          </div>
+        </InfiniteScroll>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    </div>
   )
 }
 
