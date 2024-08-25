@@ -1,0 +1,6 @@
+.post_list {
+    width: 100%;
+    height: auto;
+    display: grid;
+    gap: 20px;
+}

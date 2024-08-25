@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Post } from './common/types/Post'
 import getFakePosts from './post'
 import InfiniteScroll from './components/InfiniteScroll'
-import PostCard from './components/PostCard'
+import PostList from './components/PostList'
 
 function App() {
   const [posts, setPosts] = useState<Post[]>([])
@@ -24,9 +24,7 @@ function App() {
           loadingComponent={<div className="bt-state">Loading...</div>}
           endMessage={<div className="bt-state">You have reached the end.</div>}
         >
-          <div className="post-list">
-            {posts.map(item => <PostCard key={item.id} post={item}/>)}
-          </div>
+          <PostList posts={posts} />
         </InfiniteScroll>
       </div>
     </div>

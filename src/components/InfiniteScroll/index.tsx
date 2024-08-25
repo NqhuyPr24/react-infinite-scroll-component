@@ -8,6 +8,7 @@ type InfiniteScrollPropsType = {
     next ?: () => Promise<void> | void
     hasMore ?: boolean
     wait ?: number
+    observerMargin?: number
 }
 
 const InfiniteScroll = ({
@@ -16,7 +17,8 @@ const InfiniteScroll = ({
     endMessage,
     loadingComponent,
     hasMore = false,
-    wait = 300
+    wait = 300,
+    observerMargin = 10
 } : InfiniteScrollPropsType) => {
 
     const observerRef = useRef<IntersectionObserver | null>(null)
@@ -28,7 +30,7 @@ const InfiniteScroll = ({
             setLoading(true)
             Promise.resolve(next()).finally(() => setLoading(false))
         }
-    }, wait),[next])
+    }, wait),[next, wait])
 
     const handleObserver = useCallback(
         (entries: IntersectionObserverEntry[]) => {
@@ -41,7 +43,7 @@ const InfiniteScroll = ({
     useEffect(() => {
         observerRef.current = new IntersectionObserver(handleObserver, {
             root: null, 
-            rootMargin: "0px",
+            rootMargin: `${observerMargin}px`,
             threshold: 0.1,
         })
     

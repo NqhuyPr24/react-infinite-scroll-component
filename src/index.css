@@ -11,10 +11,7 @@ a:hover {
 body {
   margin: 0;
   padding: 0;
-  padding-bottom: 10px;
   box-sizing: border-box;
-  display: flex;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
   width: 100%;
@@ -88,56 +85,9 @@ body {
   margin: 20px 0;
 }
 
-.post-list {
-  width: 100%;
-  height: auto;
-  display: grid;
-  margin: 10px;
-  gap: 20px;
-  grid-template-columns: repeat(2, 1fr);
-}
-
-.post-card {
-  background-color: #1F1F1F;
-  border-radius: 12px;
-  padding: 10px;
-  border: 1px solid #333333;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
-}
-
-.post-image {
-  width: 100%;
-  max-height: 400px;
-  object-fit: cover;
-  border-radius: 6px;
-}
-
-.post-title {
-  font-size: 16px;
-  font-weight: 400;
-  margin: 10px 0;
-}
-
-.post-created-at {
-  color: #CCCCCC;
-  font-size: 13px;
-}
-
 .bt-state {
   padding: 20px 0;
   text-align: center;
   color: #CCCCCC;
   font-size: 15px;
-}
-
-@media (min-width: 768px) {
-  .post-list {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media (min-width: 992px) {
-  .post-list {
-    grid-template-columns: repeat(4, 1fr);
-  }
 }
